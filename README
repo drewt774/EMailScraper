@@ -1,11 +1,9 @@
 Script will parse a website and find the e-mail addresses using REGEX.
-Next release will follow a variable number of links on the website to aide in scanning and entire website rather than one page.
 
-Usage:
-Using python 2.7, execute emailScrape.py
-Enter website to scrape
-E-mails will output to screen
+To run:
+$ python pagescanner.py
 
 TODO:
 ** Enable scanning of entire website and not just a single page
-** Output to a file named after the URL
+** Enable multiple top-level domains to be scanned within a single run
+** Build UI shell
