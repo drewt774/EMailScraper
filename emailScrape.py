@@ -3,6 +3,9 @@
 import sys
 import urllib2
 import re
+import csv
+
+list1 = []
 
 def getAddress():
 	url = raw_input("Site to scrape: ")
@@ -24,7 +27,8 @@ def parseAddress():
 
 		addys = re.findall('''[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?''', html, flags=re.IGNORECASE)
 
-		print addys
+		global list1
+		list1.append(addys)
 
 	except urllib2.HTTPError, err:
 		print "Cannot retrieve URL: HTTP Error Code: ", err.code
@@ -33,10 +37,16 @@ def parseAddress():
 
 def execute():
 	parseAddress()
+	
 
 ### MAIN
 
 def main():
 	execute()
-
+	global list1
+	myFile = open("finishedFile.csv", "w+")
+	wr = csv.writer(myFile, quoting=csv.QUOTE_ALL)
+	wr.writerow(list1)
+	myFile.close
+	
 main()
