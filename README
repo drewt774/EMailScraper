@@ -1,4 +1,4 @@
-Script will parse a list of urls and find the e-mail addresses using REGEX, outputting to a local "finishedFile.csv" file. Program will provide progress report per url and provide the number of addresses found.
+Script will parse a list of urls and find the e-mail addresses using REGEX, outputting to a local "finishedFile.csv" file. Program will provide progress report per url and provide the number of addresses found, as well as a "Fail" file of URLs that didn't work.
 
 ***INPUT ALL WEBSITES TO SCRAPE INTO THE SAME DIRECTORY AS "file.csv"***
 
