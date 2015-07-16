@@ -1,4 +1,6 @@
-#!/usr/bin/python
+#PageScanner 0.2
+#Drew Taylor, forked from Kirk Durbin
+
 
 import sys
 import urllib2
@@ -6,9 +8,16 @@ import re
 import csv
 
 list1 = []
+list2 = []
 
-def getAddress():
-	url = raw_input("Site to scrape: ")
+def addList():
+	with open('file.csv', 'rb') as f:
+		reader = csv.reader(f)
+		for row in reader:
+			for s in row:
+				list2.append(s)
+
+def getAddress(url):
 	http = "http://"
 	https = "https://"
 
@@ -20,9 +29,9 @@ def getAddress():
 		url = "http://" + url
 		return url
 
-def parseAddress():
+def parseAddress(url):
 	try:
-		website = urllib2.urlopen(getAddress())
+		website = urllib2.urlopen(getAddress(url))
 		html = website.read()
 
 		addys = re.findall('''[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?''', html, flags=re.IGNORECASE)
@@ -36,17 +45,28 @@ def parseAddress():
 		print "Cannot retrive URL: " + err.reason[1]
 
 def execute():
-	parseAddress()
-	
+	global list2
+	addList()
+	totalNum = len(list2)
+	atNum = 1
+	for s in list2:
+		parseAddress(s)
+		print "Processing " + str(atNum) + " out of " + str(totalNum)
+		atNum = atNum + 1
+
+	print "Completed. Emails parsed: " + str(len(list1)) + "."
+
 
 ### MAIN
 
 def main():
+	global list2
 	execute()
 	global list1
 	myFile = open("finishedFile.csv", "w+")
 	wr = csv.writer(myFile, quoting=csv.QUOTE_ALL)
-	wr.writerow(list1)
+	for s in list1:
+		wr.writerow(s)
 	myFile.close
-	
+
 main()
