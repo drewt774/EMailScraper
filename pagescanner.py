@@ -9,6 +9,7 @@ import csv
 
 list1 = []
 list2 = []
+list3 = []
 
 def addList():
 	with open('file.csv', 'rb') as f:
@@ -30,6 +31,7 @@ def getAddress(url):
 		return url
 
 def parseAddress(url):
+	global list3
 	try:
 		website = urllib2.urlopen(getAddress(url))
 		html = website.read()
@@ -41,8 +43,10 @@ def parseAddress(url):
 
 	except urllib2.HTTPError, err:
 		print "Cannot retrieve URL: HTTP Error Code: ", err.code
+		list3.append(url)
 	except urllib2.URLError, err:
 		print "Cannot retrive URL: " + err.reason[1]
+		list3.append(url)
 
 def execute():
 	global list2
@@ -68,5 +72,11 @@ def main():
 	for s in list1:
 		wr.writerow(s)
 	myFile.close
+	global list3
+	failFile = open("failedSites.csv", "w+")
+	write = csv.writer(failFile, quoting=csv.QUOTE_ALL)
+	for j in list3:
+		write.writerow(j)
+	failFile.close
 
 main()
