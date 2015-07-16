@@ -1,9 +1,9 @@
-Script will parse a website and find the e-mail addresses using REGEX.
+Script will parse a list of urls and find the e-mail addresses using REGEX, outputting to a local "finishedFile.csv" file. Program will provide progress report per url and provide the number of addresses found.
+
+***INPUT ALL WEBSITES TO SCRAPE INTO THE SAME DIRECTORY AS "file.csv"***
 
 To run:
 $ python pagescanner.py
 
 TODO:
-** Enable scanning of entire website and not just a single page
-** Enable multiple top-level domains to be scanned within a single run
 ** Build UI shell
